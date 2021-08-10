@@ -3,6 +3,7 @@ package com.xeype;
 import java.util.Scanner;
 
 public class EndOfLessons {
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
         byte countOfLessons = 0;

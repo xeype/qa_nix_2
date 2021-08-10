@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class SumDigitsFromString {
+
     public void run() {
         System.out.println("Please enter the string: ");
 

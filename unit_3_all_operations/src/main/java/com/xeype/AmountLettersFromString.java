@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class AmountLettersFromString {
+
     public void run() {
         System.out.println("Please enter the string: ");
 
