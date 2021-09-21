@@ -131,7 +131,7 @@ public class MathSet {
         while (!isSorted) {
             isSorted = true;
             for (int i = firstIndex; i < lastIndex; i++) {
-                for (int j = i - 1; j <= lastIndex; j++) {
+                for (int j = i + 1; j <= lastIndex; j++) {
                     if ((numbers[i].doubleValue() - numbers[j].doubleValue()) > 0) {
                         Number temp = numbers[i];
                         numbers[i] = numbers[j];
@@ -216,20 +216,17 @@ public class MathSet {
     }
 
     void clear(Number[] numbers) {
-        MathSet newMathSet = new MathSet(capacity);
-
-        boolean exists;
-        for (int i = 0; i < capacity; i++) {
-            exists = false;
-
-            for (int j = 0; j < numbers.length; j++) {
-                if (this.numbers[i].equals(numbers[j]))
-                    exists = true;
+        int index;
+        for (Number num : numbers) {
+            index = getIndex(num);
+            this.numbers[index] = null;
+            for (int i = index; i < this.numbers.length; i++) {
+                if (i == this.numbers.length - 1)
+                    this.numbers[i] = null;
+                else
+                    this.numbers[i] = this.numbers[i + 1];
             }
-            if (!exists)
-                newMathSet.add(numbers[i]);
         }
-        this.numbers = newMathSet.numbers;
     }
 
     private void increaseNumbers(int newCapacity) {

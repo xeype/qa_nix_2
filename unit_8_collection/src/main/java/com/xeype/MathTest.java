@@ -6,6 +6,7 @@ package com.xeype;
  Add remaining methods
 */
 
+import javax.sound.midi.Soundbank;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -99,9 +100,10 @@ public class MathTest {
         System.out.println("1 - Add number to MathSet");
         System.out.println("2 - Add array of numbers to MathSet");
         System.out.println("3 - Join MathSet's");
-        System.out.println("4 - Interception MathSet's");
+        System.out.println("4 - Intersection MathSet's");
         System.out.println("5 - Sort MathSet's");
         System.out.println("6 - Back to menu");
+        System.out.println("7 - Get numbers");
         System.out.println("0 - Exit");
         System.out.print("Your choice: ");
         String addChoice;
@@ -156,6 +158,9 @@ public class MathTest {
                 break;
             case "6":
                 addMenu();
+                break;
+            case "7":
+                getMenu();
                 break;
             case "0":
                 System.exit(1);
@@ -349,12 +354,12 @@ public class MathTest {
                 break;
             case "3":
                 mathSet = new MathSet(new Number[]{13, 2, 44, 9, 111, 434, 6, 3});
-                System.out.println("MathSet before sorting by descending starting from '9':");
+                System.out.println("MathSet before sorting by descending starting from '44':");
                 System.out.println(mathSet.toString());
 
-                mathSet.sortDesc(9);
+                mathSet.sortDesc(44);
 
-                System.out.println("MathSet after sorting by descending starting from '9': ");
+                System.out.println("MathSet after sorting by descending starting from '44': ");
                 System.out.println(mathSet.toString());
                 sortMenu();
                 break;
@@ -382,12 +387,12 @@ public class MathTest {
                 break;
             case "6":
                 mathSet = new MathSet(new Number[]{13, 2, 44, 9, 111, 434, 6, 3});
-                System.out.println("MathSet before sorting by ascending starting from '9':");
+                System.out.println("MathSet before sorting by ascending starting from '44':");
                 System.out.println(mathSet.toString());
 
-                mathSet.sortAsc(9);
+                mathSet.sortAsc(44);
 
-                System.out.println("MathSet before sorting by ascending starting from '9':");
+                System.out.println("MathSet after sorting by ascending starting from '44':");
                 System.out.println(mathSet.toString());
                 sortMenu();
                 break;
@@ -400,6 +405,128 @@ public class MathTest {
             default:
                 System.out.println("Please choose the correct action: ");
                 sortMenu();
+        }
+    }
+
+    private void getMenu() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("1 - Get number by index");
+        System.out.println("2 - Get Max MathSet value");
+        System.out.println("3 - Get Min MathSet value");
+        System.out.println("4 - Get average MathSet value");
+        System.out.println("5 - Get median MathSet value");
+        System.out.println("6 - Back to main menu");
+        System.out.println("----------");
+        System.out.println("7 - MathSet to Array");
+        System.out.println("8 - MathSet to Array by indexes");
+        System.out.println("9 - Cut MathSet");
+        System.out.println("10 - Clear the MathSet");
+        System.out.println("11 - Clear the certain values from MathSet");
+        System.out.println("0 - Exit");
+        String getChoice;
+        try {
+            while ((getChoice = reader.readLine()) != null) {
+                getMathSet(getChoice);
+            }
+        } catch (IOException e) {
+            System.out.println("Something wrong: " + e.getMessage());
+        }
+    }
+
+    private void getMathSet(String getChoice) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String index;
+        switch (getChoice) {
+            case "1":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString() + "\n");
+                System.out.print("Please enter index: ");
+                try {
+                    index = reader.readLine();
+                    System.out.print("Value by index " + index + ": ");
+                    System.out.println(mathSet.get(Integer.parseInt(index)));
+                } catch (IOException e) {
+                    System.out.println("Something wrong: " + e.getMessage());
+                }
+                getMenu();
+                break;
+            case "2":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.print("Max value: ");
+                System.out.println(mathSet.getMax());
+                getMenu();
+                break;
+            case "3":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.print("Min value: ");
+                System.out.println(mathSet.getMin());
+                getMenu();
+                break;
+            case "4":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.print("Average Value: ");
+                System.out.println(mathSet.getAverage());
+                getMenu();
+                break;
+            case "5":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.print("Median Value: ");
+                System.out.println(mathSet.getMedian());
+                getMenu();
+                break;
+            case "6":
+                mainMenu();
+                break;
+            case "7":
+                System.out.println("MathSet at array: ");
+                for (Number num : mathSet.toArray()) {
+                    System.out.println(num + " ");
+                }
+                getMenu();
+                break;
+            case "8":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.println("MathSet at array from index 2 to index 5: ");
+                for (Number num : mathSet.toArray(2, 5)) {
+                    System.out.print(num + " ");
+                }
+                System.out.println();
+                getMenu();
+                break;
+            case "9":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                System.out.println("Cut of MathSet from idex 2 to index 5: ");
+                System.out.println(mathSet.cut(2, 5));
+                getMenu();
+                break;
+            case "10":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                mathSet.clear();
+                System.out.println("MathSet cleared: ");
+                System.out.println(mathSet.toString());
+                getMenu();
+                break;
+            case "11":
+                System.out.println("Current MathSet: ");
+                System.out.println(mathSet.toString());
+                Number[] valuesToClear = {2, 1, 5};
+                mathSet.clear(valuesToClear);
+                System.out.println("MathSet after removing values '2', '1', '5': ");
+                System.out.println(mathSet.toString());
+                getMenu();
+                break;
+            case "0":
+                System.exit(1);
+            default:
+                System.out.println("Please choose the correct action: ");
+                getMenu();
         }
     }
 }
