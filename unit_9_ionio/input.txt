@@ -1,0 +1,2 @@
+Hah. Let's check the count of palindromes in this file. 
+What is this - palindromes?
